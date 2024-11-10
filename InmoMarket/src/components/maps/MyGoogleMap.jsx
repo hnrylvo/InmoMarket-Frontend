@@ -3,7 +3,7 @@ import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 const containerStyle = {
   width: "100%",
-  height: "450px",
+  height: "100%",
 };
 
 
@@ -36,7 +36,7 @@ function MyGoogleMap({ lat, lng, setLat, setLng }) {
   };
 
   return isLoaded ? (
-    <div className="rounded-xl border-2 border-green-500 overflow-hidden">
+    <div className="h-full rounded-xl border-2 border-green-500 overflow-hidden">
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={{ lat, lng }} 

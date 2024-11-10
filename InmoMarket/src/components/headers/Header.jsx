@@ -28,7 +28,7 @@ export default function Header() {
   }, []);
 
   return (
-    <div className="flex items-center w-full bg-background-color justify-between py-6 lg:px-4 top-0 px-0 fixed z-10">
+    <div className="flex items-center w-full bg-background-color justify-between py-6 lg:px-4 top-0 px-3 fixed z-10">
       <div className="hidden w-1/3 lg:w-1/4 lg:flex justify-start">
         <h1 className="text-xl lg:text-2xl font-semibold">InmoMarket</h1>
       </div>

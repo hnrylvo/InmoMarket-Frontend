@@ -31,7 +31,7 @@ export default function MiniTextField({
 
   return (
     <div className="flex items-center gap-2">
-      {Icon && <Icon className="text-primary-color w-5 h-5" />}
+      {Icon && <Icon className="text-primary-color w-4 h-4 lg:w-5 lg:h-5" />}
       <input
         type={type}
         placeholder={placeholder}
@@ -39,7 +39,7 @@ export default function MiniTextField({
         onChange={handleChange}
         min={min}
         max={max}
-        className="w-32 bg-background-color border-2 border-secondary-green rounded-2xl py-2 px-3"
+        className="w-20 lg:w-32 bg-background-color border-2 border-secondary-green rounded-xl lg:rounded-2xl py-2 px-3 text-xs lg:text-base "
       />
     </div>
   );

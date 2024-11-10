@@ -20,7 +20,7 @@ export default function HeaderDDMenu({ onClose, menuRef }) {
   return (
     <div
       ref={menuRef}
-      className="bg-white shadow-sm mt-12 lg:w-64 mr-5 lg:mr-7 p-5 rounded-lg absolute right-0 lg:right-auto z-50"
+      className="bg-white shadow-sm mt-12 lg:w-64 p-5 mr-4 rounded-lg absolute right-3 lg:right-0 z-50"
     >
       <ul>
         {menuItems.map((item, index) => (

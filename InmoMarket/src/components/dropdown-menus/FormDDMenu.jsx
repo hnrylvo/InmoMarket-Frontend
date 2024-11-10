@@ -42,7 +42,7 @@ export default function FormDDMenu({
         readOnly
         value={value || placeholder}
         onClick={toggleMenu}
-        className="w-full p-4 border border-secondary-green rounded-xl cursor-pointer focus:outline-none focus:ring-1 focus:ring-secondary-green"
+        className="w-full p-3 lg:p-4 border border-secondary-green rounded-lg text-sm lg:text-base lg:rounded-xl cursor-pointer focus:outline-none focus:ring-1 focus:ring-secondary-green"
         placeholder={placeholder}
       />
       <FaAngleDown

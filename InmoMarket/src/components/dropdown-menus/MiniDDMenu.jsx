@@ -13,7 +13,7 @@ export default function MiniDDMenu({ textFieldIcon: Icon, value, onChange }) {
       <select
         value={String(value)}
         onChange={handleChange}
-        className="w-32 bg-background-color border-2 border-secondary-green rounded-2xl py-2 px-3"
+        className="w-20 lg:w-32 bg-background-color border-2 border-secondary-green rounded-xl lg:rounded-2xl py-2 px-3 text-xs lg:text-base"
       >
         <option value="true">Yes</option>
         <option value="false">No</option>

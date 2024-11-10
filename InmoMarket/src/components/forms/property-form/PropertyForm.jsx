@@ -4,21 +4,21 @@ import FormDDMenu from "../../dropdown-menus/FormDDMenu";
 import NextButton from "../../buttons/NextButton";
 
 export default function PropertyForm({ 
-  propertyType, 
-  departaments, 
+  propertyTypeOptions, 
+  departamentsOptions, 
   municipality, 
   setMunicipality, 
   neighborhood, 
   setNeighborhood,
   onNext,
-  selectedPropertyType,
-  setSelectedPropertyType,
-  selectedDepartment,
-  setSelectedDepartment
+  propertyType,
+  setPropertyType,
+  department,
+  setDepartment
 }) {
   const handleNext = () => {
     // Validar que los campos requeridos estén completos
-    if (!selectedPropertyType || !selectedDepartment || !municipality || !neighborhood) {
+    if (!propertyType || !department || !municipality || !neighborhood) {
       alert("Please fill in all required fields");
       return;
     }
@@ -26,34 +26,34 @@ export default function PropertyForm({
   };
 
   return (
-    <div className="flex lg:w-1/2 lg:h-4/5 flex-col py-8 px-14 gap-12 bg-background-color rounded-2xl">
-      <h3 className="text-text-color text-2xl font-medium text-center">
+    <div className="flex lg:w-1/2 lg:h-4/5 w-full h-screen flex-col py-4 px-6 lg:py-8 lg:px-14 lg:gap-12 lg:bg-background-color rounded-2xl">
+      <h3 className="text-text-color text-lg lg:text-2xl font-medium text-center">
         Tell us about your property
       </h3>
       <div>
-        <p className="text-text-color text-xl font-medium py-5">
+        <p className="text-text-color text-base lg:text-xl font-medium py-5">
           Property Type <span className="text-red-500">*</span>
         </p>
         <FormDDMenu 
-          options={propertyType} 
+          options={propertyTypeOptions} 
           placeholder="Select property type" 
-          value={selectedPropertyType}
-          onChange={(value) => setSelectedPropertyType(value)}
+          value={propertyType}
+          onChange={(value) => setPropertyType(value)}
         />
       </div>
       <div>
-        <p className="text-text-color text-xl font-medium py-5">
+        <p className="text-text-color text-base lg:text-xl font-medium py-5">
           Department <span className="text-red-500">*</span>
         </p>
         <FormDDMenu 
-          options={departaments} 
+          options={departamentsOptions} 
           placeholder="Select department"
-          value={selectedDepartment}
-          onChange={(value) => setSelectedDepartment(value)}
+          value={department}
+          onChange={(value) => setDepartment(value)}
         />
       </div>
       <div>
-        <p className="text-text-color text-xl font-medium py-5">
+        <p className="text-text-color text-base lg:text-xl font-medium py-5">
           Municipality <span className="text-red-500">*</span>
         </p>
         <TextField
@@ -63,7 +63,7 @@ export default function PropertyForm({
         />
       </div>
       <div>
-        <p className="text-text-color text-xl font-medium py-5">
+        <p className="text-text-color text-base lg:text-xl font-medium py-5">
           Address <span className="text-red-500">*</span>
         </p>
         <TextField
@@ -72,7 +72,7 @@ export default function PropertyForm({
           placeholder="Enter address"
         />
       </div>
-      <div className="w-full flex items-center justify-center">
+      <div className="w-full flex items-center justify-center mt-auto">
         <NextButton onClick={handleNext} />
       </div>
     </div>

@@ -29,7 +29,6 @@ export default function PropertySpecs({
   setDescription,
   onPrev,
   onNext,
-  //onSubmit
 }) {
   const handlePrev = () => {
     onPrev();
@@ -39,34 +38,14 @@ export default function PropertySpecs({
     onNext();
   };
 
-//   const handleSubmit = () => {
-//     // Validación básica antes de enviar
-//     if (
-//       !area ||
-//       !rooms ||
-//       !bathrooms ||
-//       !parking ||
-//       !floors ||
-//       furnished === undefined ||
-//       !description.trim()
-//     ) {
-//       alert("Please fill in all fields");
-//       return;
-//     }
-
-//     if (onSubmit) {
-//       onSubmit();
-//     }
-//   };
-
   return (
-    <div className="flex lg:w-1/2 lg:h-4/5 flex-col py-8 px-14 gap-12 bg-background-color rounded-2xl">
-      <h3 className="text-text-color text-2xl font-medium text-center">
+    <div className="flex lg:w-1/2 lg:h-4/5 w-full h-screen flex-col py-4 px-6 lg:py-8 lg:px-14 gap-6 lg:gap-12 lg:bg-background-color rounded-2xl">
+      <h3 className="text-text-color text-lg lg:text-2xl font-medium text-center">
         Property Specifications
       </h3>
       <div className="grid grid-cols-3 gap-4">
         <div className="flex flex-col items-center justify-center">
-          <p className="text-text-color text-xl font-medium py-3">Area</p>
+          <p className="text-text-color text-base lg:text-xl font-medium py-3">Area</p>
           <MiniTextField
             textFieldIcon={FaRuler}
             placeholder="area"
@@ -77,7 +56,7 @@ export default function PropertySpecs({
         </div>
 
         <div className="flex flex-col items-center justify-center">
-          <p className="text-text-color text-xl font-medium py-3">Rooms</p>
+          <p className="text-text-color text-base lg:text-xl font-medium py-3">Rooms</p>
           <MiniTextField
             textFieldIcon={FaBed}
             placeholder="rooms"
@@ -89,7 +68,7 @@ export default function PropertySpecs({
         </div>
 
         <div className="flex flex-col items-center justify-center">
-          <p className="text-text-color text-xl font-medium py-3">Bathrooms</p>
+          <p className="text-text-color text-base lg:text-xl font-medium py-3">Bathrooms</p>
           <MiniTextField
             textFieldIcon={FaBath}
             placeholder="bathrooms"
@@ -101,7 +80,7 @@ export default function PropertySpecs({
         </div>
 
         <div className="flex flex-col items-center justify-center">
-          <p className="text-text-color text-xl font-medium py-3">Parking</p>
+          <p className="text-text-color text-base lg:text-xl font-medium py-3">Parking</p>
           <MiniTextField
             textFieldIcon={FaCar}
             placeholder="parking"
@@ -113,7 +92,7 @@ export default function PropertySpecs({
         </div>
 
         <div className="flex flex-col items-center justify-center">
-          <p className="text-text-color text-xl font-medium py-3">Floors</p>
+          <p className="text-text-color text-base lg:text-xl font-medium py-3">Floors</p>
           <MiniTextField
             textFieldIcon={FaGopuram}
             placeholder="floors"
@@ -125,7 +104,7 @@ export default function PropertySpecs({
         </div>
 
         <div className="flex flex-col items-center justify-center">
-          <p className="text-text-color text-xl font-medium py-3">Furnished</p>
+          <p className="text-text-color text-base lg:text-xl font-medium py-3">Furnished</p>
           <MiniDDMenu
             textFieldIcon={FaCouch}
             value={furnished}
@@ -134,16 +113,16 @@ export default function PropertySpecs({
         </div>
       </div>
       <hr />
-      <div className="h-2/5">
-        <p className="text-text-color text-xl font-medium py-3">Description</p>
+      <div className="h-1/4 lg:h-2/5">
+        <p className="text-text-color text-base lg:text-xl font-medium py-3">Description</p>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full h-full bg-background-color border-2 border-secondary-green rounded-2xl p-4 resize-none"
+          className="w-full h-full bg-background-color border-2 border-secondary-green rounded-2xl p-4 resize-none text-sm lg:text-base"
           placeholder="Description"
         ></textarea>
       </div>
-      <div className="w-full flex items-center justify-between mt-6">
+      <div className="w-full flex items-center justify-between mt-auto">
         <PrevButton onClick={handlePrev} />
         <NextButton onClick={handleNext} />
       </div>
