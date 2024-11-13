@@ -3,18 +3,18 @@ import TextField from "../../inputs/TextField";
 import FormDDMenu from "../../dropdown-menus/FormDDMenu";
 import NextButton from "../../buttons/NextButton";
 
-export default function PropertyForm({ 
-  propertyTypeOptions, 
-  departamentsOptions, 
-  municipality, 
-  setMunicipality, 
-  neighborhood, 
+export default function PropertyForm({
+  propertyTypeOptions,
+  departamentsOptions,
+  municipality,
+  setMunicipality,
+  neighborhood,
   setNeighborhood,
   onNext,
   propertyType,
   setPropertyType,
   department,
-  setDepartment
+  setDepartment,
 }) {
   const handleNext = () => {
     // Validar que los campos requeridos estén completos
@@ -34,9 +34,9 @@ export default function PropertyForm({
         <p className="text-text-color text-base lg:text-xl font-medium py-5">
           Property Type <span className="text-red-500">*</span>
         </p>
-        <FormDDMenu 
-          options={propertyTypeOptions} 
-          placeholder="Select property type" 
+        <FormDDMenu
+          options={propertyTypeOptions}
+          placeholder="Select property type"
           value={propertyType}
           onChange={(value) => setPropertyType(value)}
         />
@@ -45,8 +45,8 @@ export default function PropertyForm({
         <p className="text-text-color text-base lg:text-xl font-medium py-5">
           Department <span className="text-red-500">*</span>
         </p>
-        <FormDDMenu 
-          options={departamentsOptions} 
+        <FormDDMenu
+          options={departamentsOptions}
           placeholder="Select department"
           value={department}
           onChange={(value) => setDepartment(value)}
@@ -64,12 +64,12 @@ export default function PropertyForm({
       </div>
       <div>
         <p className="text-text-color text-base lg:text-xl font-medium py-5">
-          Address <span className="text-red-500">*</span>
+          Neighborhood <span className="text-red-500">*</span>
         </p>
         <TextField
           value={neighborhood}
           onChange={(e) => setNeighborhood(e.target.value)}
-          placeholder="Enter address"
+          placeholder="Enter neighborhood"
         />
       </div>
       <div className="w-full flex items-center justify-center mt-auto">
