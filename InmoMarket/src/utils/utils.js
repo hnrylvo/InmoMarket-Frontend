@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://inmomarket.me/api/v1';
+const API_BASE_URL = 'https://localhost:3000/api/v1';
 
 export const getToken = () => {
   // Since token is in cookies, you might not need this method

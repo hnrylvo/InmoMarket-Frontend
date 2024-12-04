@@ -16,7 +16,7 @@ export default function Header() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get('https://inmomarket.me/api/v1/users/me', {
+        const response = await axios.get('http://localhost:3000/api/v1/users/me', {
           withCredentials: true
         });
         
@@ -36,7 +36,7 @@ export default function Header() {
 
     const checkAuthentication = async () => {
       try {
-        const response = await axios.get('https://inmomarket.me/api/v1/auth/check', {
+        const response = await axios.get('http://localhost:3000/api/v1/auth/check', {
           withCredentials: true
         });
         

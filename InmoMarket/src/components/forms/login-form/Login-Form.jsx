@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../../contexts/AuthContext";
 
-const url = "https://inmomarket.me/api/v1";
+const url = "http://localhost:3000/api/v1";
 
 export default function LoginForm() {
   const navigate = useNavigate();
