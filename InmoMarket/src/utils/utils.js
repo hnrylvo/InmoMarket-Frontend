@@ -1,46 +1,33 @@
 const API_BASE_URL = 'https://inmomarket.me/api/v1';
 
-export const saveToken = (token) => {
-  localStorage.setItem("token", token);
-  console.log("Token guardado en local storage:", token);
-  return token;
-};
-
-export const saveUser = (user) => {
-  localStorage.setItem("user", JSON.stringify(user));
-  console.log("Usuario guardado en local storage:", user);
-  return user;
-};
-
-export const getUser = () => {
-  const user = localStorage.getItem("user");
-  const parsedUser = user ? JSON.parse(user) : null;
-  console.log("Usuario obtenido del local storage:", parsedUser);
-  return parsedUser;
-};
-
 export const getToken = () => {
-  const token = localStorage.getItem("token");
-  console.log("Token obtenido del local storage:", token);
-  return token || null;
+  // Since token is in cookies, you might not need this method
+  return null;
 };
 
 export const checkAuthStatus = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/check`, {
-      credentials: 'include',
+      method: 'GET',
+      credentials: 'include', // Important for including cookies
       headers: {
-        'Authorization': `Bearer ${getToken()}`,
+        'Accept': 'application/json'
       }
     });
     
     if (!response.ok) {
-      throw new Error('Auth check failed');
+      return { authenticated: false };
     }
     
-    return await response.json();
+    const data = await response.json();
+    return { 
+      authenticated: true, 
+      user: data.user // Assuming your backend returns user info
+    };
   } catch (error) {
     console.error('Error checking auth:', error);
-    throw error;
+    return { authenticated: false };
   }
 };
+
+// Remove saveToken and saveUser as they're not needed for cookie-based auth

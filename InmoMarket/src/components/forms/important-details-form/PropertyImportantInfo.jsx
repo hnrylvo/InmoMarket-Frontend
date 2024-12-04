@@ -10,29 +10,20 @@ export default function PropertyImportantInfo({
   onPrev,
   propertyPrice,
   setPropertyPrice,
+  phoneNumber,
+  setPhoneNumber,
   selectedDays,
   setSelectedDays,
   onDaysChange,
   selectedTimes,
   setSelectedTimes,
-  onSubmit,
 }) {
-  // const handleNext = () => {
-  //   if (!propertyPrice || selectedDays.length === 0) {
-  //     alert('Please fill in all required fields');
-  //     return;
-  //   }
-  //   onNext();
-  // };
-
-  const handleSubmit = () => {
-    if (!propertyPrice || selectedDays.length === 0) {
-      alert('Please fill in all required fields');
+  const handleNext = () => {
+    if (!propertyPrice || !phoneNumber || selectedDays.length === 0) {
+      alert("Please fill in all required fields");
       return;
     }
-    if (onSubmit) {
-      onSubmit();
-    }
+    onNext();
   };
 
   const handlePrev = () => {
@@ -44,18 +35,36 @@ export default function PropertyImportantInfo({
       <h3 className="text-text-color text-lg lg:text-2xl font-medium text-center">
         Important Details
       </h3>
-      <div className="w-1/2 flex flex-col items-center justify-center place-self-center">
-        <p className="text-text-color text-base lg:text-xl font-medium py-3">
+
+        <div className="w-full flex flex-row justify-between">
+        <div>
+        <p className="text-text-color text-base lg:text-lg font-medium py-3">
           Property price
         </p>
         <TextField
           type="number"
           placeholder="$ 00000"
+          min={0}
           value={propertyPrice}
           onChange={(e) => setPropertyPrice(e.target.value)}
           textCenter={true}
         />
-      </div>
+        </div>
+        <div>
+        <p className="text-text-color text-base lg:text-lg font-medium py-3">
+          Phone number
+        </p>
+        <TextField
+          type="tel"
+          placeholder="0000-0000"
+          min={0}
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          textCenter={true}
+        />
+        </div>
+        </div>
+
       <DayPicker
         selectedDays={selectedDays}
         setSelectedDays={setSelectedDays}
@@ -64,10 +73,10 @@ export default function PropertyImportantInfo({
       <TimePicker
         selectedTimes={selectedTimes}
         setSelectedTimes={setSelectedTimes}
-       />
+      />
       <div className="w-full flex items-center justify-between mt-auto">
         <PrevButton onClick={handlePrev} />
-        <NextButton onClick={handleSubmit} text="Submit"/>
+        <NextButton onClick={handleNext} />
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ import PropertyUbication from "../../components/forms/ubication-form/PropertyUbi
 import PropertySpecs from "../../components/forms/specs-form/PropertySpecs";
 import PropertyImportantInfo from "../../components/forms/important-details-form/PropertyImportantInfo";
 import { useNavigate } from "react-router-dom";
+import PropertyPhotos from "../../components/forms/photos-form/PropertyPhotos";
+import { createPublication } from "../../services/api";
 
 export default function SellProperty() {
   const propertyTypeOptions = ["House", "Apartment", "Beach House"];
@@ -50,8 +52,10 @@ export default function SellProperty() {
           propertyFurnished: "",
           propertyDescription: "",
           propertyPrice: "",
+          phoneNumber: "",
           selectedDays: [],
           selectedTimes: [],
+          photos: [],
         };
   });
 
@@ -70,9 +74,8 @@ export default function SellProperty() {
     }));
   };
 
-  
   const handleNext = () => {
-    if (currentStep < 3) setCurrentStep((prev) => prev + 1);
+    if (currentStep < 4) setCurrentStep((prev) => prev + 1);
   };
 
   const handlePrev = () => {
@@ -80,19 +83,46 @@ export default function SellProperty() {
   };
 
   const navigate = useNavigate();
+
   const handleSubmit = async () => {
     try {
-      console.log("Datos a enviar:", formData);
-      // const response = await api.post('/property', formData);
-      // if (response.ok) {
-      //   // Limpiar el formulario y localStorage
-      localStorage.removeItem('propertyFormData');
-      localStorage.removeItem('currentStep');
-      //   // Redireccionar o mostrar mensaje de éxito
-      navigate('/home');
-      // }
+      // Prepare the data to match the API's expected format
+      const publicationData = {
+        propertyType: formData.propertyType,
+        neighborhood: formData.neighborhood,
+        municipality: formData.municipality,
+        department: formData.department,
+        propertyAddress: formData.propertyAddress,
+        longitude: formData.longitude,
+        latitude: formData.latitude,
+        propertySize: formData.propertySize,
+        propertyBedrooms: formData.propertyBedrooms,
+        propertyBathrooms: formData.propertyBathrooms,
+        propertyFloors: formData.propertyFloors,
+        propertyParking: Number(formData.propertyParking),
+        propertyFurnished: formData.propertyFurnished,
+        propertyDescription: formData.propertyDescription,
+        propertyPrice: formData.propertyPrice,
+        phoneNumber: formData.phoneNumber,
+        selectedDays: formData.selectedDays,
+        selectedTimes: formData.selectedTimes,
+        // Add photos handling if required by the API
+      };
+
+      // Call the API to create the publication
+      const createdPublication = await createPublication(publicationData);
+
+      // Clear local storage
+      localStorage.removeItem("propertyFormData");
+      localStorage.removeItem("currentStep");
+
+      // Navigate to home or success page
+      navigate("/home");
+
+      // Optionally, show a success message
+      alert("Publication created successfully");
     } catch (error) {
-      console.error("Error al enviar los datos:", error);
+      alert("Error creating publication");
     }
   };
 
@@ -108,13 +138,9 @@ export default function SellProperty() {
             neighborhood={formData.neighborhood}
             setNeighborhood={(value) => updateFormData("neighborhood", value)}
             propertyType={formData.propertyType}
-            setPropertyType={(value) =>
-              updateFormData("propertyType", value)
-            }
+            setPropertyType={(value) => updateFormData("propertyType", value)}
             department={formData.department}
-            setDepartment={(value) =>
-              updateFormData("department", value)
-            }
+            setDepartment={(value) => updateFormData("department", value)}
             onNext={handleNext}
           />
         );
@@ -122,7 +148,9 @@ export default function SellProperty() {
         return (
           <PropertyUbication
             propertyAddress={formData.propertyAddress}
-            setPropertyAdress={(value) => updateFormData("propertyAddress", value)}
+            setPropertyAdress={(value) =>
+              updateFormData("propertyAddress", value)
+            }
             latitude={formData.latitude}
             longitude={formData.longitude}
             setLat={(value) => updateFormData("latitude", value)}
@@ -147,7 +175,9 @@ export default function SellProperty() {
             furnished={formData.propertyFurnished}
             setFurnished={(value) => updateFormData("propertyFurnished", value)}
             description={formData.propertyDescription}
-            setDescription={(value) => updateFormData("propertyDescription", value)}
+            setDescription={(value) =>
+              updateFormData("propertyDescription", value)
+            }
             onPrev={handlePrev}
             onNext={handleNext}
           />
@@ -157,16 +187,19 @@ export default function SellProperty() {
           <PropertyImportantInfo
             propertyPrice={formData.propertyPrice}
             setPropertyPrice={(value) => updateFormData("propertyPrice", value)}
+            phoneNumber={formData.phoneNumber}
+            setPhoneNumber={(value) => updateFormData("phoneNumber", value)}
             selectedDays={formData.selectedDays || []}
             setSelectedDays={(value) => updateFormData("selectedDays", value)}
             onDaysChange={(days) => updateFormData("selectedDays", days)}
             selectedTimes={formData.selectedTimes || []}
             setSelectedTimes={(value) => updateFormData("selectedTimes", value)}
             onPrev={handlePrev}
-            //onNext={handleSubmit}
-            onSubmit={handleSubmit}
+            onNext={handleNext}
           />
         );
+      case 4:
+        return <PropertyPhotos onPrev={handlePrev} onSubmit={handleSubmit} />;
       default:
         return null;
     }

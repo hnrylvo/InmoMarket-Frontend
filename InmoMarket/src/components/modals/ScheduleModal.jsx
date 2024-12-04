@@ -1,18 +1,6 @@
 import React from "react";
 import { IoClose } from "react-icons/io5";
 
-// Función para crear el enlace de WhatsApp
-const createWhatsAppLink = (phoneNumber, day, hour) => {
-  // Eliminar cualquier caracter no numérico del número de teléfono
-  const cleanNumber = phoneNumber.replace(/\D/g, "");
-  // Crear el mensaje
-  const message = encodeURIComponent(
-    `Estoy interesado en visitar su propiedad el día: ${day} a la hora: ${hour}`
-  );
-  // Retornar el enlace completo
-  return `https://wa.me/${cleanNumber}?text=${message}`;
-};
-
 const ScheduleModal = ({
   isOpen,
   onClose,
@@ -21,13 +9,30 @@ const ScheduleModal = ({
   selectedHour,
   onDaySelect,
   onHourSelect,
+  phoneNumber,
+  neighborhood,
 }) => {
+  // Función para crear el enlace de WhatsApp
+  const createWhatsAppLink = (phoneNumber, day, hour) => {
+    // Eliminar cualquier caracter no numérico del número de teléfono
+    const cleanNumber = phoneNumber.replace(/\D/g, "");
+    // Crear el mensaje
+    const message = encodeURIComponent(
+      `Estoy interesado en visitar su propiedad en ${neighborhood} el día: ${day} a la hora: ${hour}`
+    );
+    // Retornar el enlace completo
+    return `https://wa.me/${cleanNumber}?text=${message}`;
+  };
+
   if (!isOpen) return null;
 
   const handleScheduleVisit = () => {
     // Reemplaza "1234567890" con el número de WhatsApp al que quieres enviar el mensaje
-    const whatsappNumber = "50374152678"; // Ejemplo: "50370123456"
-    window.open(createWhatsAppLink(whatsappNumber, selectedDay, selectedHour), '_blank');
+    const whatsappNumber = phoneNumber; // Ejemplo: "50370123456"
+    window.open(
+      createWhatsAppLink(whatsappNumber, selectedDay, selectedHour),
+      "_blank"
+    );
     onClose();
   };
 
@@ -77,9 +82,10 @@ const ScheduleModal = ({
           ))}
         </div>
 
-        <button 
-        onClick={handleScheduleVisit}
-        className="w-full bg-white text-[#1B4640] py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+        <button
+          onClick={handleScheduleVisit}
+          className="w-full bg-white text-[#1B4640] py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+        >
           Programar visita
         </button>
       </div>

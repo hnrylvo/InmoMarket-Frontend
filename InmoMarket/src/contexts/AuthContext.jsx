@@ -1,62 +1,47 @@
-import React, { createContext, useState, useEffect } from "react";
-import {
-  saveToken,
-  saveUser,
-  getToken,
-  getUser,
-  checkAuthStatus,
-} from "../utils/utils";
+import React, { createContext, useState, useEffect, useContext } from "react";
+import axios from 'axios';
+
+const API_BASE_URL = 'https://inmomarket.me/api/v1';
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    initializeAuth();
+    checkAuthStatus();
   }, []);
 
-  const initializeAuth = async () => {
+  const checkAuthStatus = async () => {
     try {
-      const storedToken = getToken();
-      const storedUser = getUser();
+      const response = await axios.get(`${API_BASE_URL}/auth/check`, {
+        withCredentials: true
+      });
 
-      if (storedToken) {
-        // Verificar si la sesión sigue siendo válida
-        const authStatus = await checkAuthStatus();
-        if (authStatus.authenticated) {
-          setToken(storedToken);
-          setUser(storedUser);
-        } else {
-          // Si la sesión no es válida, limpiar todo
-          removeToken();
-        }
-      }
+      setUser(response.data.user);
+      setIsLoading(false);
     } catch (error) {
-      console.error("Error initializing auth:", error);
-      removeToken();
-    } finally {
+      setUser(null);
       setIsLoading(false);
     }
   };
 
-  const handleSaveToken = (newToken) => {
-    saveToken(newToken);
-    setToken(newToken);
+  const removeToken = async () => {
+    try {
+      await axios.get(`${API_BASE_URL}/auth/logout`, {
+        withCredentials: true
+      });
+      setUser(null);
+    } catch (error) {
+      console.error('Logout error:', error);
+      setUser(null);
+    }
   };
 
-  const handleSaveUser = (newUser) => {
-    saveUser(newUser);
-    setUser(newUser);
-  };
-
-  const removeToken = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setToken(null);
-    setUser(null);
+  const handleSaveToken = () => {};
+  const handleSaveUser = (userData) => {
+    setUser(userData);
   };
 
   return (
@@ -65,10 +50,9 @@ const AuthProvider = ({ children }) => {
         handleSaveToken,
         removeToken,
         handleSaveUser,
-        token,
         isLoading,
         user,
-        isAuthenticated: !!token && !!user,
+        isAuthenticated: !!user,
       }}
     >
       {children}
@@ -76,4 +60,12 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-export { AuthContext, AuthProvider };
+const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
+
+export { AuthContext, AuthProvider, useAuth };

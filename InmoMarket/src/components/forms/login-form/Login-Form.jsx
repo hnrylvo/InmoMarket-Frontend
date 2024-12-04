@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../../contexts/AuthContext";
 
-const url = import.meta.env.VITE_BASE_URL;
+const url = "https://inmomarket.me/api/v1";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -52,9 +52,7 @@ export default function LoginForm() {
   return (
     <div className="bg-white px-10 py-20 rounded-3xl border-2 border-gray-100">
       <h1 className="text-7xl font-bold mb-16">Welcome back!</h1>
-      <p className="text-xl font-medium mb-10">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-      </p>
+      <img src="/inmomarket.jpg" alt="logo" />
       <p className="text-xl font-medium text-gray-500 my-8">
         to keep connected with us please login with your Google account
       </p>
